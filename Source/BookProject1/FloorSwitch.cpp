@@ -4,6 +4,7 @@
 #include "FloorSwitch.h"
 #include "Components/BoxComponent.h"
 #include "Components/StaticMeshComponent.h"
+#include "MainCharacter.h"
 
 // Sets default values
 AFloorSwitch::AFloorSwitch()
@@ -53,12 +54,28 @@ void AFloorSwitch::OnOverlapBegin(UPrimitiveComponent* OverlappedComponent,
 	bool bFromSweep,
 	const FHitResult& SweepResult) 
 {
-	
+	AMainCharacter* MainCharacter = Cast <AMainCharacter>(OtherActor);
+	if (MainCharacter) {
+		ActivateFloorSwitch();
+	}
 }
 void AFloorSwitch::OnOverlapEnd(UPrimitiveComponent* OverlappedComponent,
 	AActor* OtherActor,
 	UPrimitiveComponent* OtherComp,
 	int32 OtherBodyIndex)
 {
+	AMainCharacter* MainCharacter = Cast <AMainCharacter>(OtherActor);
+	if (MainCharacter) {
+		DeactivateFloorSwitch();
+	}
+}
+void AFloorSwitch::UpdateFloorSwitchLocation(float DoorLocation, float SwitchLocation)
+{
+	FVector NewDoorLocation = InitialDoorLocation;
+	NewDoorLocation.Z += DoorLocation;
+	Door->SetWorldLocation(NewDoorLocation);
 
+	FVector NewSwitchLocation = InitialSwitchLocation;
+	NewSwitchLocation.Z += SwitchLocation;
+	FloorSwitch->SetWorldLocation(NewSwitchLocation);
 }
