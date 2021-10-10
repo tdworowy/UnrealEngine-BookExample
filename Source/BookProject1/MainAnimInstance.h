@@ -41,4 +41,3 @@ public:
 		class AMainCharacter* Main;
 
 };
-// TODO animation don't wrok, check blueprints

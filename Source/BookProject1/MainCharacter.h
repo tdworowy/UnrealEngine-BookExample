@@ -10,11 +10,13 @@ UCLASS()
 class BOOKPROJECT1_API AMainCharacter : public ACharacter
 {
 	GENERATED_BODY()
-		UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera, meta = (AllowPrivateAccess = "true"))
+	
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera, meta = (AllowPrivateAccess = "true"))
 		class USpringArmComponent* CameraBoom;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera, meta = (AllowPrivateAccess = "true"))
 		class UCameraComponent* FollowCamera;
+
 
 public:
 	// Sets default values for this character's properties
@@ -22,6 +24,8 @@ public:
 	FORCEINLINE float GetHealth() { return Health; }
 	void SetHealth(float Amount); //{ Amount > MaxHealth ? Health = MaxHealth : Health = Amount; }
 	FORCEINLINE void SetMaxHealth(float Amount) { MaxHealth = Amount; }
+	
+	void ESCDown();
 
 protected:
 	// Called when the game starts or when spawned
@@ -41,6 +45,9 @@ protected:
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "PlayerStats")
 		float MaxHealth;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Controller")
+		class AMainPlayerController* MainPlayerController;
 
 public:
 	// Called every frame

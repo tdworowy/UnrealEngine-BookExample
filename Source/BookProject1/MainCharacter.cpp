@@ -8,6 +8,7 @@
 #include "GameFramework/CharacterMovementComponent.h"
 #include "GameFramework/Controller.h"
 #include "Animation/AnimInstance.h"
+#include "MainPlayerController.h"
 // Sets default values
 AMainCharacter::AMainCharacter()
 {
@@ -43,6 +44,7 @@ AMainCharacter::AMainCharacter()
 void AMainCharacter::BeginPlay()
 {
 	Super::BeginPlay();
+	MainPlayerController = Cast<AMainPlayerController>(GetController());
 	
 }
 void AMainCharacter::MoveForward(float Value)
@@ -103,6 +105,8 @@ void AMainCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCompo
 	PlayerInputComponent->BindAction("Jump",IE_Pressed, this, &AMainCharacter::Jump);
 	PlayerInputComponent->BindAction("Jump", IE_Released, this, &AMainCharacter::StopJumping);
 	PlayerInputComponent->BindAction("LMBDwon", IE_Pressed, this, &AMainCharacter::LMBDown);
+
+	PlayerInputComponent->BindAction("ESC", IE_Pressed, this, &AMainCharacter::ESCDown);
 }
 void AMainCharacter::SetHealth(float Amount)
 {
@@ -117,5 +121,13 @@ void AMainCharacter::SetHealth(float Amount)
 	else
 	{
 		Health = Amount;
+	}
+	
+}
+void AMainCharacter::ESCDown()
+{	
+	if (MainPlayerController)
+	{	UE_LOG(LogTemp, Warning, TEXT("toggle menu"))
+		MainPlayerController->TogglePauseMenu();
 	}
 }
