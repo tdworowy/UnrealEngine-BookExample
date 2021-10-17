@@ -9,6 +9,8 @@
 #include "GameFramework/Controller.h"
 #include "Animation/AnimInstance.h"
 #include "MainPlayerController.h"
+#include "CSaveGame.h"
+#include <Runtime/Engine/Classes/Kismet/GameplayStatics.h>
 // Sets default values
 AMainCharacter::AMainCharacter()
 {
@@ -130,4 +132,24 @@ void AMainCharacter::ESCDown()
 	{	UE_LOG(LogTemp, Warning, TEXT("toggle menu"))
 		MainPlayerController->TogglePauseMenu();
 	}
+}
+void AMainCharacter::SaveGame()
+{
+	UCSaveGame* SameGameInstance = Cast<UCSaveGame>(UGameplayStatics::CreateSaveGameObject(UCSaveGame::StaticClass()));
+	SameGameInstance->Health = Health;
+	SameGameInstance->MaxHealth = MaxHealth;
+	SameGameInstance->WorldLocation = GetActorLocation();
+	SameGameInstance->WorldRoation = GetActorRotation();
+
+	UGameplayStatics::SaveGameToSlot(SameGameInstance, SameGameInstance->PlayerName, SameGameInstance->UserSlot);
+
+}
+void AMainCharacter::LoadGame()
+{
+	UCSaveGame* LoadGameInstance = Cast<UCSaveGame>(UGameplayStatics::CreateSaveGameObject(UCSaveGame::StaticClass()));
+	LoadGameInstance = Cast<UCSaveGame>(UGameplayStatics::LoadGameFromSlot(LoadGameInstance->PlayerName, LoadGameInstance->UserSlot));
+	Health = LoadGameInstance->Health;
+	MaxHealth = LoadGameInstance->MaxHealth;
+	SetActorLocation(LoadGameInstance->WorldLocation);
+	SetActorRotation(LoadGameInstance->WorldRoation);
 }
