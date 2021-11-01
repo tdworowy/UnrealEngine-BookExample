@@ -11,6 +11,8 @@
 #include "MainPlayerController.h"
 #include "CSaveGame.h"
 #include <Runtime/Engine/Classes/Kismet/GameplayStatics.h>
+#include "BookProject1.h"
+#include "DrawDebugHelpers.h"
 // Sets default values
 AMainCharacter::AMainCharacter()
 {
@@ -47,6 +49,16 @@ void AMainCharacter::BeginPlay()
 {
 	Super::BeginPlay();
 	MainPlayerController = Cast<AMainPlayerController>(GetController());
+
+	UE_LOG(CustomLog, VeryVerbose, TEXT("CustomLog VeryVerbose"));
+	UE_LOG(CustomLog, Error, TEXT("CustomLog Error"));
+	if (GEngine)
+	{
+		GEngine->AddOnScreenDebugMessage(-1, 1.5f, FColor::Blue, TEXT("Debug message"), false);
+	}
+	print("Use of print macro");
+
+	DrawDebugPoint(GetWorld(), GetActorLocation() + FVector(0.f, 0.f, 50.f), 10.f, FColor::Blue, false, 30.f);
 	
 }
 void AMainCharacter::MoveForward(float Value)
@@ -78,6 +90,21 @@ void AMainCharacter::MoveRight(float Value)
 void AMainCharacter::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
+	FString Print = FString::Printf(TEXT("Delta Time: %f"), DeltaTime);
+	GEngine->AddOnScreenDebugMessage(1, 1.5f, FColor::Cyan, Print, false);
+
+	FHitResult HitResult;
+	FVector Start = GetActorLocation() + FVector(0.f, 0.f, 75.f);
+	FVector End = Start + GetActorForwardVector() * 5000.f;
+	
+	FCollisionQueryParams CollisionQueryParams;
+	CollisionQueryParams.AddIgnoredActor(this);
+
+	GetWorld()->LineTraceSingleByChannel(HitResult, Start, End, ECollisionChannel::ECC_Visibility, CollisionQueryParams);
+	if (HitResult.bBlockingHit)
+	{
+		DrawDebugSphere(GetWorld(), HitResult.Location, 15.f, 12, FColor::Red, false, 5.f);
+	}
 
 }
 
