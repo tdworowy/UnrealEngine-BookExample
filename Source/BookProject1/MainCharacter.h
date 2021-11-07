@@ -6,6 +6,9 @@
 #include "GameFramework/Character.h"
 #include "MainCharacter.generated.h"
 
+DECLARE_DELEGATE(FRotateDelegate);
+DECLARE_DYNAMIC_DELEGATE_RetVal_OneParam(float, FDynamicRotateDelegate, float, RotationSpeed);
+
 UCLASS()
 class BOOKPROJECT1_API AMainCharacter : public ACharacter
 {
@@ -21,9 +24,18 @@ class BOOKPROJECT1_API AMainCharacter : public ACharacter
 public:
 	// Sets default values for this character's properties
 	AMainCharacter();
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayerStats")
+		float Health;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "PlayerStats")
+		float MaxHealth;
+
 	FORCEINLINE float GetHealth() { return Health; }
 	void SetHealth(float Amount); //{ Amount > MaxHealth ? Health = MaxHealth : Health = Amount; }
 	FORCEINLINE void SetMaxHealth(float Amount) { MaxHealth = Amount; }
+	FRotateDelegate RotateDelegate;
+	FDynamicRotateDelegate DynamicRotateDelegate;
 	
 	void ESCDown();
 
@@ -40,14 +52,11 @@ protected:
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Combat")
 		bool bAttacking;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayerStats")
-		float Health;
-
-	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "PlayerStats")
-		float MaxHealth;
-
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Controller")
 		class AMainPlayerController* MainPlayerController;
+	
+	UFUNCTION(BlueprintCallable)
+		void SetRotatingActorRates(float Rate);
 
 public:
 	// Called every frame
@@ -61,5 +70,12 @@ public:
 
 	UFUNCTION(BlueprintCallable)
 		void LoadGame();
+	
+	UFUNCTION(BlueprintCallable)
+		void ToggleAllRotators();
+	
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+		float RotationgActorRate;
+
 };
 

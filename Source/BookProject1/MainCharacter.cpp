@@ -13,6 +13,7 @@
 #include <Runtime/Engine/Classes/Kismet/GameplayStatics.h>
 #include "BookProject1.h"
 #include "DrawDebugHelpers.h"
+#include <BookProject1/RotatingActor.h>
 // Sets default values
 AMainCharacter::AMainCharacter()
 {
@@ -22,7 +23,9 @@ AMainCharacter::AMainCharacter()
 
 	Health = 85.f;
 	MaxHealth = 100.f;
-	
+
+	RotationgActorRate = 180.f;
+
 	bUseControllerRotationPitch = false;
 	bUseControllerRotationYaw = false;
 	bUseControllerRotationRoll = false;
@@ -179,4 +182,25 @@ void AMainCharacter::LoadGame()
 	MaxHealth = LoadGameInstance->MaxHealth;
 	SetActorLocation(LoadGameInstance->WorldLocation);
 	SetActorRotation(LoadGameInstance->WorldRoation);
+}
+void AMainCharacter::ToggleAllRotators()
+{
+	/*TSubclassOf<AActor> WorldClassObject = ARotatingActor::StaticClass();
+	TArray<AActor*> ActorsOfClass;
+	UGameplayStatics::GetAllActorsOfClass(this, WorldClassObject, ActorsOfClass);
+	
+	for (AActor* Actor : ActorsOfClass)
+	{
+		ARotatingActor* RotatingActor = Cast<ARotatingActor>(Actor);
+		if (RotatingActor)
+		{
+			RotatingActor->ToggleRotate();
+		}
+	}*/
+	RotateDelegate.ExecuteIfBound();
+}
+void AMainCharacter::SetRotatingActorRates(float Rate)
+{
+	float PreviousRotationRate = DynamicRotateDelegate.Execute(Rate);
+	printf("Previous Rotation Rate: %f", PreviousRotationRate);
 }
