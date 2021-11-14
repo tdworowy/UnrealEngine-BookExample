@@ -83,13 +83,13 @@ void AFloorSwitch::UpdateFloorSwitchLocation(float DoorLocation, float SwitchLoc
 }
 void AFloorSwitch::ActivateSwitchTargets()
 {
-	for(ASwitchTarget* SwitchTarget:SwitchTargets)
+	for(ASwitchTarget* SwitchTarget : SwitchTargets)
 	{
 	 /*	ISwitchInterface* Interface = Cast<ISwitchInterface>(SwitchTarget);
 		if (Interface)
 		{
 			SwitchTarget->Activate_Implementation();
 		} */
-		SwitchTarget->Activate_Implementation();
+		SwitchTarget->Activate_Implementation(); // DON'T WORK
 	}
 }

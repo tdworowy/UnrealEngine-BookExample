@@ -61,13 +61,13 @@ public:
 		int32 OtherBodyIndex);
 
 
-	UFUNCTION(BlueprintImplementableEvent,Category = "FloorSwitch")
+	UFUNCTION(BlueprintImplementableEvent,Category = "Floor Switch")
 	void ActivateFloorSwitch();
 	
-	UFUNCTION(BlueprintImplementableEvent,Category = "FloorSwitch")
+	UFUNCTION(BlueprintImplementableEvent,Category = "Floor Switch")
 	void DeactivateFloorSwitch();
 
-	UFUNCTION(BlueprintCallable, Category = "FloorSwitch")
+	UFUNCTION(BlueprintCallable, Category = "Floor Switch")
 	void UpdateFloorSwitchLocation(float DoorLocation, float SwitchLocation);
 };
 
