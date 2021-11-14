@@ -8,6 +8,8 @@
 
 DECLARE_DELEGATE(FRotateDelegate);
 DECLARE_DYNAMIC_DELEGATE_RetVal_OneParam(float, FDynamicRotateDelegate, float, RotationSpeed);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FDynamicMulticastRotateDelegate, bool, bPlaySound); // can find "Bind Event to Dynamic Multicast Rotate Delegate" in BP in UE5
+
 
 UCLASS()
 class BOOKPROJECT1_API AMainCharacter : public ACharacter
