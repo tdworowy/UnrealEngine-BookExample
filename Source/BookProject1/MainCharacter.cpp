@@ -14,11 +14,13 @@
 #include "BookProject1.h"
 #include "DrawDebugHelpers.h"
 #include <BookProject1/RotatingActor.h>
+#include "NavigationSystem.h"
+#include "NavigationPath.h"
+
 // Sets default values
 AMainCharacter::AMainCharacter()
 {
- 	// Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
-
+ 	
 	PrimaryActorTick.bCanEverTick = true;
 
 	Health = 85.f;
@@ -62,6 +64,24 @@ void AMainCharacter::BeginPlay()
 	print("Use of print macro");
 
 	DrawDebugPoint(GetWorld(), GetActorLocation() + FVector(0.f, 0.f, 50.f), 10.f, FColor::Blue, false, 30.f);
+
+	TSubclassOf<AActor> WorldClassObject = ARotatingActor::StaticClass();
+	TArray <AActor*> ActorsOfClass;
+	UGameplayStatics::GetAllActorsOfClass(this, WorldClassObject, ActorsOfClass);
+	if (ActorsOfClass.Num() > 0)
+	{
+		print("ActorsOfClass.Num() > 0");
+		UNavigationPath* NavPath = UNavigationSystemV1::FindPathToActorSynchronously(this, GetActorLocation(), ActorsOfClass[0]);
+		if (NavPath->PathPoints.Num() > 0)
+		{
+			for (auto pt : NavPath->PathPoints)
+			{	
+				print("Draw Path");
+				DrawDebugSphere(GetWorld(), pt, 20.f, 12, FColor::Blue, true);
+	
+			}
+		}
+	}
 	
 }
 void AMainCharacter::MoveForward(float Value)
