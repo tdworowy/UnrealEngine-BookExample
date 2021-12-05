@@ -3,11 +3,11 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "GameFramework/Character.h"
+#include "BaseCharacter.h"
 #include "Enemy.generated.h"
 
 UCLASS()
-class BOOKPROJECT1_API AEnemy : public ACharacter
+class BOOKPROJECT1_API AEnemy : public ABaseCharacter
 {
 	GENERATED_BODY()
 
@@ -30,6 +30,44 @@ public:
 		FVector PatrolPoint4;
 
 	class AEnemyController* EnemyController;
+
+	UPROPERTY(BlueprintReadOnly)
+		bool bIsAccelerating;
+
+	UFUNCTION(BlueprintCallable)
+		void SetIsAccelerating(bool bAccelerating);
+
+	UPROPERTY(VisibleAnywhere, Category = "BehaviorTree")
+		class USphereComponent* AgroSphere;
+
+	UPROPERTY(VisibleAnywhere, Category = "BehaviorTree")
+		class USphereComponent* AttackSphere;
+
+	UFUNCTION()
+		void AgroSphereBeginOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
+
+	UFUNCTION()
+		void AgroSphereEndOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex);
+
+	UFUNCTION()
+		void AttackSphereBeginOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
+
+	UFUNCTION()
+		void AttackSphereEndOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex);
+
+	bool bAttackTimerStarted;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Combat")
+		bool bInAttackRange;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Combat")
+		float AttackMinTime;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Combat")
+		float AttackMaxTime;
+
+	FTimerHandle AttackTimer;
+
 
 
 protected:

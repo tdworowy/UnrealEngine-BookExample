@@ -40,4 +40,7 @@ public:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Movemnet)
 		class AMainCharacter* Main;
 
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Movement)
+		class AEnemy* Enemy;
+
 };
