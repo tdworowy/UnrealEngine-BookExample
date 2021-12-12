@@ -33,6 +33,6 @@ public:
 		FVector WorldLocation;
 
 	UPROPERTY(VisibleAnywhere, Category = Basic)
-		FRotator WorldRoation;
+		FRotator WorldRotation;
 	
 };

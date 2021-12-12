@@ -29,7 +29,7 @@ public:
 		bool bAttacking;
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Anims")
-		class UAnimMontage* CountessAttackMontage;
+		class UAnimMontage* AttackMontage;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Stats")
 		float Health;

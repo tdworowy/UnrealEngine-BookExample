@@ -79,10 +79,10 @@ float ABaseCharacter::TakeDamage(float DamageAmount, struct FDamageEvent const& 
 void ABaseCharacter::Die(AActor* Causer)
 {
 	UAnimInstance* AnimInstance = GetMesh()->GetAnimInstance();
-	if (AnimInstance && CountessAttackMontage)
+	if (AnimInstance && AttackMontage)
 	{
-		AnimInstance->Montage_Play(CountessAttackMontage, 1.0f);
-		AnimInstance->Montage_JumpToSection(FName("Death"), CountessAttackMontage);
+		AnimInstance->Montage_Play(AttackMontage, 1.0f);
+		AnimInstance->Montage_JumpToSection(FName("Death"), AttackMontage);
 	}
 
 	SwordCollisionBox->SetCollisionEnabled(ECollisionEnabled::NoCollision);
