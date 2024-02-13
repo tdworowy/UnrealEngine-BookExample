@@ -1,1 +1,1 @@
-Example from Unreal Engine C++ The Ultimate Developer's Handbook book by Stephen Seth Ulibarri
+Example from [Unreal Engine C++ The Ultimate Developer's Handbook](https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=&ved=2ahUKEwjArPKilqmEAxULBxAIHcJNCZ0QFnoECCcQAQ&url=https%3A%2F%2Fwww.amazon.com%2FUnreal-Engine-Ultimate-Developers-Handbook%2Fdp%2FB089M2H7J1&usg=AOvVaw0QEWxbe17MEe1uBlVPPJC1&opi=89978449) book by Stephen Seth Ulibarri
