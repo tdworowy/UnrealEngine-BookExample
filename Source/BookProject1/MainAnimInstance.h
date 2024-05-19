@@ -2,45 +2,43 @@
 
 #pragma once
 
-#include "CoreMinimal.h"
 #include "Animation/AnimInstance.h"
+#include "CoreMinimal.h"
 #include "MainAnimInstance.generated.h"
 
 /**
- * 
+ *
  */
 UCLASS()
-class BOOKPROJECT1_API UMainAnimInstance : public UAnimInstance
-{
-	GENERATED_BODY()
+class BOOKPROJECT1_API UMainAnimInstance : public UAnimInstance {
+  GENERATED_BODY()
 public:
-	virtual void NativeInitializeAnimation() override;
-	
-	UFUNCTION(BlueprintCallable, Category = AnimationProperties)
-		void UpdateAnimationProperties(float DeltaTime);
+  virtual void NativeInitializeAnimation() override;
 
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Movement)
-		float MovementSpeed;
+  UFUNCTION(BlueprintCallable, Category = AnimationProperties)
+  void UpdateAnimationProperties(float DeltaTime);
 
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Movement)
-		bool bIsInAir;
-	
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Movemnet)
-		bool bIsAccelerating;
+  UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Movement)
+  float MovementSpeed;
 
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Movemnet)
-		float YawDelta;
-	
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Movemnet)
-		FRotator RotationLastFrame;
-		
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Movemnet)
-		class APawn* Pawn;
+  UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Movement)
+  bool bIsInAir;
 
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Movemnet)
-		class AMainCharacter* Main;
+  UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Movemnet)
+  bool bIsAccelerating;
 
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Movement)
-		class AEnemy* Enemy;
+  UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Movemnet)
+  float YawDelta;
 
+  UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Movemnet)
+  FRotator RotationLastFrame;
+
+  UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Movemnet)
+  class APawn *Pawn;
+
+  UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Movemnet)
+  class AMainCharacter *Main;
+
+  UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Movement)
+  class AEnemy *Enemy;
 };

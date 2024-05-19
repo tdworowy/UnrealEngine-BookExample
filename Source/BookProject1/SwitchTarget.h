@@ -7,29 +7,27 @@
 #include "SwitchInterface.h"
 #include "SwitchTarget.generated.h"
 UCLASS()
-class BOOKPROJECT1_API ASwitchTarget : public AActor, public ISwitchInterface
-{
-	GENERATED_BODY()
-	
-public:	
-	// Sets default values for this actor's properties
-	ASwitchTarget();
-	UPROPERTY(VisibleAnywhere)
-		class UStaticMeshComponent* TargetMesh;
-	FVector InitialLocation;
-	FRotator InitialRotation;
+class BOOKPROJECT1_API ASwitchTarget : public AActor, public ISwitchInterface {
+  GENERATED_BODY()
+
+public:
+  // Sets default values for this actor's properties
+  ASwitchTarget();
+  UPROPERTY(VisibleAnywhere)
+  class UStaticMeshComponent *TargetMesh;
+  FVector InitialLocation;
+  FRotator InitialRotation;
 
 protected:
-	// Called when the game starts or when spawned
-	virtual void BeginPlay() override;
+  // Called when the game starts or when spawned
+  virtual void BeginPlay() override;
 
-public:	
-	// Called every frame
-	virtual void Tick(float DeltaTime) override;
-	virtual void Activate_Implementation() override;
-	UFUNCTION(BlueprintImplementableEvent, Category = "Switch Target")
-		void ActivateSwitchTarget();
-	UFUNCTION(BlueprintCallable, Category = "Floor Switch")
-		void UpdateSwitchLocation(float Location, float Rotation);
-
+public:
+  // Called every frame
+  virtual void Tick(float DeltaTime) override;
+  virtual void Activate_Implementation() override;
+  UFUNCTION(BlueprintImplementableEvent, Category = "Switch Target")
+  void ActivateSwitchTarget();
+  UFUNCTION(BlueprintCallable, Category = "Floor Switch")
+  void UpdateSwitchLocation(float Location, float Rotation);
 };

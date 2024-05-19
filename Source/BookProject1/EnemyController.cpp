@@ -1,39 +1,34 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
-
 #include "EnemyController.h"
-#include "Enemy.h"
-#include "BehaviorTree/BlackboardComponent.h"
 #include "BehaviorTree/BehaviorTree.h"
+#include "BehaviorTree/BlackboardComponent.h"
 #include "BookProject1.h"
+#include "Enemy.h"
 
+AEnemyController::AEnemyController() {
+  BlackboardComponent =
+      CreateDefaultSubobject<UBlackboardComponent>(TEXT("BlackboardComp"));
+  check(BlackboardComponent);
 
-AEnemyController::AEnemyController()
-{
-	BlackboardComponent = CreateDefaultSubobject<UBlackboardComponent>(TEXT("BlackboardComp"));
-	check(BlackboardComponent);
-
-	BehaviorTreeComponent = CreateDefaultSubobject<UBehaviorTreeComponent>(TEXT("BehaviorTreeComp"));
-	check(BehaviorTreeComponent);
+  BehaviorTreeComponent =
+      CreateDefaultSubobject<UBehaviorTreeComponent>(TEXT("BehaviorTreeComp"));
+  check(BehaviorTreeComponent);
 }
-void AEnemyController::OnPossess(APawn* InPawn)
-{
-	Super::OnPossess(InPawn);
-	if (InPawn == nullptr)
-	{
-		return;
-	}
-	AEnemy* Enemy = Cast<AEnemy>(InPawn);
-	if (Enemy)
-	{
-		if (Enemy->BehaviorTree)
-		{
-			BlackboardComponent->InitializeBlackboard(*(Enemy->BehaviorTree->BlackboardAsset));
-			BehaviorTreeComponent->StartTree(*(Enemy->BehaviorTree));
-		}
-	}
+void AEnemyController::OnPossess(APawn *InPawn) {
+  Super::OnPossess(InPawn);
+  if (InPawn == nullptr) {
+    return;
+  }
+  AEnemy *Enemy = Cast<AEnemy>(InPawn);
+  if (Enemy) {
+    if (Enemy->BehaviorTree) {
+      BlackboardComponent->InitializeBlackboard(
+          *(Enemy->BehaviorTree->BlackboardAsset));
+      BehaviorTreeComponent->StartTree(*(Enemy->BehaviorTree));
+    }
+  }
 }
-UBlackboardComponent* AEnemyController::GetBlackboard()
-{
-	return BlackboardComponent;
+UBlackboardComponent *AEnemyController::GetBlackboard() {
+  return BlackboardComponent;
 }

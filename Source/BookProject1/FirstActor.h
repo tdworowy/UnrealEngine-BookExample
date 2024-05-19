@@ -3,37 +3,39 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "GameFramework/Actor.h"
 #include "FirstActor.generated.h"
+#include "GameFramework/Actor.h"
 
 UCLASS()
-class BOOKPROJECT1_API AFirstActor : public AActor
-{
-	GENERATED_BODY()
-	
-public:	
-	// Sets default values for this actor's properties
-	AFirstActor();
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="Learning About Specifiers")
-		float ActorLifetime;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Learning About Specifiers")
-		int32 ActorLevel;
+class BOOKPROJECT1_API AFirstActor : public AActor {
+  GENERATED_BODY()
 
-	UPROPERTY(VisibleAnywhere, Category = "Learning About Components")
-		class UStaticMeshComponent* FirstActorMesh; // class means you need include header "Components/StaticMeshComponent.h" only in .cpp file 
+public:
+  // Sets default values for this actor's properties
+  AFirstActor();
+  UPROPERTY(VisibleAnywhere, BlueprintReadOnly,
+            Category = "Learning About Specifiers")
+  float ActorLifetime;
+  UPROPERTY(EditAnywhere, BlueprintReadWrite,
+            Category = "Learning About Specifiers")
+  int32 ActorLevel;
 
-	UFUNCTION(BlueprintCallable)
-		void CheckLifetime();
+  UPROPERTY(VisibleAnywhere, Category = "Learning About Components")
+  class UStaticMeshComponent
+      *FirstActorMesh; // class means you need include header
+                       // "Components/StaticMeshComponent.h" only in .cpp file
 
-	UFUNCTION(BlueprintImplementableEvent, BlueprintCallable)
-		void PrintLevel();
+  UFUNCTION(BlueprintCallable)
+  void CheckLifetime();
+
+  UFUNCTION(BlueprintImplementableEvent, BlueprintCallable)
+  void PrintLevel();
 
 protected:
-	// Called when the game starts or when spawned
-	virtual void BeginPlay() override;
+  // Called when the game starts or when spawned
+  virtual void BeginPlay() override;
 
-public:	
-	// Called every frame
-	virtual void Tick(float DeltaTime) override;
-
+public:
+  // Called every frame
+  virtual void Tick(float DeltaTime) override;
 };
